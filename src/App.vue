@@ -1,27 +1,42 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="wrap">
+    <Suspense>
+      <template #default>
+        <Home />
+      </template>
+      <template #fallback>
+        <h1>Loading ...</h1>
+      </template>
+    </Suspense>
+    <hr>
+    <Demo />
+  </div>
+
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import { defineComponent, provide } from 'vue'
+import Home from './views/Home.vue'
+import Demo from './views/Demo.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
+    Home,
+    Demo
+  },
+  setup() {
+    const location = {
+      address: 'shagnhai',
+      office: 'weWork'
+    }
+    provide('location', location)
   }
 })
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="less" scoped>
+.wrap {
+  width: 60vw;
+  margin: 0 auto;
 }
 </style>
